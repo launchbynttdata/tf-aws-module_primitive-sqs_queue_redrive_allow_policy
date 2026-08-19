@@ -143,13 +143,6 @@ module "sqs_queue_redrive_allow_policy" {
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.6 |
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_random"></a> [random](#provider\_random) | 3.8.1 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
-
 ## Modules
 
 | Name | Source | Version |
@@ -174,31 +167,31 @@ module "sqs_queue_redrive_allow_policy" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | Map of keys to resource\_name module settings (cloud\_resource\_type must be alphanumeric only). | <pre>map(object({<br/>    name       = string<br/>    max_length = optional(number, 80)<br/>  }))</pre> | n/a | yes |
-| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | Logical product family for resource naming. | `string` | n/a | yes |
-| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | Logical product service for resource naming. | `string` | n/a | yes |
 | <a name="input_class_env"></a> [class\_env](#input\_class\_env) | Environment classification for resource naming. | `string` | n/a | yes |
 | <a name="input_instance_env"></a> [instance\_env](#input\_instance\_env) | Instance environment number (0–999) for resource naming. | `number` | n/a | yes |
 | <a name="input_instance_resource"></a> [instance\_resource](#input\_instance\_resource) | Instance resource number (0–100) for resource naming. | `number` | n/a | yes |
-| <a name="input_use_azure_region_abbr"></a> [use\_azure\_region\_abbr](#input\_use\_azure\_region\_abbr) | Whether to use Azure-style region abbreviation in resource names (set false for AWS examples). | `bool` | `false` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to created AWS resources. | `map(string)` | `{}` | no |
-| <a name="input_sqs_server_side_encryption"></a> [sqs\_server\_side\_encryption](#input\_sqs\_server\_side\_encryption) | How to encrypt the example SQS queues. These values map to mutually exclusive aws\_sqs\_queue arguments:<br/>customer\_managed\_kms sets kms\_master\_key\_id (and must not set sqs\_managed\_sse\_enabled);<br/>sqs\_managed sets sqs\_managed\_sse\_enabled only (and must not set kms\_master\_key\_id). | `string` | `"customer_managed_kms"` | no |
+| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | Logical product family for resource naming. | `string` | n/a | yes |
+| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | Logical product service for resource naming. | `string` | n/a | yes |
+| <a name="input_max_receive_count"></a> [max\_receive\_count](#input\_max\_receive\_count) | Maximum receives before a message is sent to the dead-letter queue (source queue redrive policy). | `number` | `5` | no |
 | <a name="input_queue_url"></a> [queue\_url](#input\_queue\_url) | When set, attaches the primitive module to this queue URL instead of the DLQ created in this example. | `string` | `null` | no |
 | <a name="input_redrive_allow_policy"></a> [redrive\_allow\_policy](#input\_redrive\_allow\_policy) | When set, uses this JSON string as the redrive allow policy instead of the default derived from the source queue ARN. | `string` | `null` | no |
-| <a name="input_max_receive_count"></a> [max\_receive\_count](#input\_max\_receive\_count) | Maximum receives before a message is sent to the dead-letter queue (source queue redrive policy). | `number` | `5` | no |
+| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | Map of keys to resource\_name module settings (cloud\_resource\_type must be alphanumeric only). | <pre>map(object({<br/>    name       = string<br/>    max_length = optional(number, 80)<br/>  }))</pre> | n/a | yes |
+| <a name="input_sqs_server_side_encryption"></a> [sqs\_server\_side\_encryption](#input\_sqs\_server\_side\_encryption) | How to encrypt the example SQS queues. These values map to mutually exclusive aws\_sqs\_queue arguments:<br/>customer\_managed\_kms sets kms\_master\_key\_id (and must not set sqs\_managed\_sse\_enabled);<br/>sqs\_managed sets sqs\_managed\_sse\_enabled only (and must not set kms\_master\_key\_id). | `string` | `"customer_managed_kms"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to created AWS resources. | `map(string)` | `{}` | no |
+| <a name="input_use_azure_region_abbr"></a> [use\_azure\_region\_abbr](#input\_use\_azure\_region\_abbr) | Whether to use Azure-style region abbreviation in resource names (set false for AWS examples). | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_aws_region"></a> [aws\_region](#output\_aws\_region) | AWS Region where this example is deployed (use for SDK clients so they match the Terraform provider region). |
+| <a name="output_dlq_url"></a> [dlq\_url](#output\_dlq\_url) | URL of the dead-letter queue used in this example. |
+| <a name="output_expected_redrive_allow_policy"></a> [expected\_redrive\_allow\_policy](#output\_expected\_redrive\_allow\_policy) | Expected RedriveAllowPolicy JSON (matches module.sqs\_queue\_redrive\_allow\_policy.redrive\_allow\_policy). |
 | <a name="output_id"></a> [id](#output\_id) | Queue URL from the primitive module (same as the DLQ URL when using the default example wiring). |
+| <a name="output_kms_key_id"></a> [kms\_key\_id](#output\_kms\_key\_id) | KMS key ID when sqs\_server\_side\_encryption is customer\_managed\_kms; empty string when sqs\_managed. |
 | <a name="output_queue_url"></a> [queue\_url](#output\_queue\_url) | Queue URL from the primitive module output. |
 | <a name="output_redrive_allow_policy"></a> [redrive\_allow\_policy](#output\_redrive\_allow\_policy) | Redrive allow policy JSON from the primitive module output. |
-| <a name="output_dlq_url"></a> [dlq\_url](#output\_dlq\_url) | URL of the dead-letter queue used in this example. |
-| <a name="output_source_queue_url"></a> [source\_queue\_url](#output\_source\_queue\_url) | URL of the source queue that redrives to the DLQ. |
 | <a name="output_source_queue_arn"></a> [source\_queue\_arn](#output\_source\_queue\_arn) | ARN of the source queue. |
+| <a name="output_source_queue_url"></a> [source\_queue\_url](#output\_source\_queue\_url) | URL of the source queue that redrives to the DLQ. |
 | <a name="output_sqs_server_side_encryption"></a> [sqs\_server\_side\_encryption](#output\_sqs\_server\_side\_encryption) | SQS encryption mode in use (customer\_managed\_kms or sqs\_managed). |
-| <a name="output_kms_key_id"></a> [kms\_key\_id](#output\_kms\_key\_id) | KMS key ID when sqs\_server\_side\_encryption is customer\_managed\_kms; empty string when sqs\_managed. |
-| <a name="output_expected_redrive_allow_policy"></a> [expected\_redrive\_allow\_policy](#output\_expected\_redrive\_allow\_policy) | Expected RedriveAllowPolicy JSON (matches module.sqs\_queue\_redrive\_allow\_policy.redrive\_allow\_policy). |
-| <a name="output_aws_region"></a> [aws\_region](#output\_aws\_region) | AWS Region where this example is deployed (use for SDK clients so they match the Terraform provider region). |
 <!-- END_TF_DOCS -->
