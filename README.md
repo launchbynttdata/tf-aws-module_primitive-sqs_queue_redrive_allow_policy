@@ -11,7 +11,8 @@ Terraform primitive module that wraps a single [`aws_sqs_queue_redrive_allow_pol
 
 ```hcl
 module "dlq_redrive_allow" {
-  source = "path-or-registry-to-this-module"
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/sqs_queue_redrive_allow_policy/aws"
+  version = "~> 1.0"
 
   queue_url = aws_sqs_queue.dlq.url
   redrive_allow_policy = jsonencode({
@@ -22,12 +23,6 @@ module "dlq_redrive_allow" {
 ```
 
 A full example (KMS-encrypted source and DLQ, resource naming module, Terratest) lives under [`examples/complete`](./examples/complete/).
-
-## Contributing
-
-Run `make configure` from the repository root to sync shared automation before using `make` targets. Provider configuration is not committed in modules; the build generates `provider.tf` in examples where applicable.
-
-For Terraform documentation embedded below, use `terraform-docs` or rely on the pre-commit hook that updates the marked section.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
