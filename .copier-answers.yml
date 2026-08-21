@@ -2,4 +2,4 @@
 # https://copier.readthedocs.io/en/stable/updating/#never-change-the-answers-file-manually
 
 _commit: 0.7.1
-_src_path: /Users/a348454/Orgs/NTTD/standarization/launch-terraform-skeleton
+_src_path: gh:launchbynttdata/launch-terraform-skeleton
