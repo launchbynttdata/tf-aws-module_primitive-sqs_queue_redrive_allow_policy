@@ -1,8 +1,10 @@
+.DS_Store
+Thumbs.db
+
 terraform.*
 .repo/
 components/
 .semverbot.toml
-.golangci.yaml
 
 .idea
 !examples/*.tfvars
@@ -56,7 +58,5 @@ terraform.rc
 azure_env.sh
 .releaserc.json
 
-
 # VS Code
 .vscode/
-local_code_review.md
