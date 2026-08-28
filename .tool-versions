@@ -1,5 +1,5 @@
 conftest 0.56.0
-golang 1.26.1
+golang 1.26.7
 golangci-lint 2.11.3
 pre-commit 4.6.0
 terraform 1.10.4
