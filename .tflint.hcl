@@ -1,3 +1,8 @@
+plugin "terraform" {
+  enabled = true
+  preset  = "recommended"
+}
+
 config {
   plugin_dir = "~/.tflint.d/plugins"
 
